@@ -1,21 +1,9 @@
 import java.sql.*;
 public class ConexaoSQL {
-<<<<<<< HEAD
-    private Connection conexao1;
 
-    public boolean conectar() {
-
-        try {
-            String url = "jdbc:sqlite:banco.db";
-            this.conexao1 = DriverManager.getConnection(url);
-            System.out.println("Conectado com sucesso");
-        } catch (SQLException ex) {
-            System.out.println("Erro ao acessar banco: " + ex.getMessage());
-=======
     private Connection conexao = null;
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
-
     public boolean conectar() {
         try {
             String url = "jdbc:sqlite:banco.db";
@@ -28,9 +16,10 @@ public class ConexaoSQL {
     }
     public boolean creatTable(){
         try{
-            String sql1 = "CREATE TABLE IF NOT EXISTS NOMES(NOME1 TEXT,NOME2 TEXT)";
+            String sql1 = "CREATE TABLE IF NOT EXISTS NOMES(ID INTEGER PRIMARY KEY AUTOINCREMENT, NOME1 TEXT)";
             preparedStatement = this.conexao.prepareStatement(sql1);
             preparedStatement.execute();
+            preparedStatement.executeUpdate();
             System.out.println("Tabela criada com sucesso");
         }catch (SQLException e){
             System.out.println("Erro ao criar Tabela em banco: "+e.getMessage());
@@ -52,19 +41,22 @@ public class ConexaoSQL {
         }
         return true;
     };
-    public boolean inserirDados(String nome1,String nome2){
+    public boolean inserirDados(String nome1){
         try{
-            String sql = "INSERT INTO NOMES(NOME1,NOME2) VALUES (?,?)";
-            this.preparedStatement = this.conexao.prepareStatement(sql);
-            this.preparedStatement.setString(1,nome1);
-            this.preparedStatement.setString(2,nome2);
-            this.preparedStatement.executeUpdate();
-            System.out.println("Dados inseridos ao banco com sucesso!!");
+            if((verificar_Dados_Entrada_Banco(nome1)) == false){
+                String sql = "INSERT INTO NOMES (NOME1) VALUES (?)";
+                preparedStatement = this.conexao.prepareStatement(sql);
+                preparedStatement.setString(1,nome1);
+                preparedStatement.executeUpdate();
+                System.out.println("Dados inseridos ao banco com sucesso!!");
+            }else{
+            System.out.println("Dado repetido! Refaça a operação");
+            }
         }catch(SQLException ex) {
             System.out.println("Erro ao inserir dados no banco: "+ ex.getMessage());
             return false;
         }
-        return true;
+            return true;
     }
     public void exibirBanco(){
         try{
@@ -73,25 +65,53 @@ public class ConexaoSQL {
             this.resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 String texto1 = resultSet.getString("NOME1");
-                String texto2 = resultSet.getString("NOME2");
-                System.out.println("Nome : "+texto1 +"\nNome:"+texto2);
+                int id = resultSet.getInt("ID");
+                System.out.println("|ID:"+id+"| Nome:"+texto1+" |");
             }
         }catch(SQLException ex) {
             System.out.println("Erro ao Visualizar dados no banco: "+ ex.getMessage());
-        }finally {
-            desconectar();
         }
 
     }
-    public boolean excluirDado(String nome1 || String nome2){
+    public boolean excluirDado(String nome){
         try{
-            String sql = "DELETE FROM NOMES WHARE NOME1 = ?";
-            preparedStatement = this.conexao.prepareStatement(sql);
-            preparedStatement.setString(1,);
+            if( nome!=null && (verificar_Dados_Entrada_Banco(nome) == true)) {
+                String sql1 = "DELETE FROM NOMES WHERE NOME1 = ?";
+                preparedStatement = this.conexao.prepareStatement(sql1);
+                preparedStatement.setString(1, nome);
+                int verificacao = preparedStatement.executeUpdate();
+                if (verificacao > 0) {
+                    System.out.println("Registro excluído com sucesso!");
+                    return true;
+                } else {
+                    System.out.println("Nenhum registro encontrado com o nome especificado.");
+                    return false;
+                }
+            }else {
+                System.out.println("Erro ao excluir");
+                return false;
+            }
         }catch (SQLException e){
-            System.out.println("Erro ao Visualizar dados no banco: "+ e.getMessage());
->>>>>>> 81bfdf1 (Inserindo CRUD)
+            System.out.println("Erro ao Excluir dados no banco: "+ e.getMessage());
+            return false;
         }
-        return true;
+    }
+    private boolean verificar_Dados_Entrada_Banco(String dado){
+        try {
+            String sqlite = "SELECT * FROM NOMES WHERE NOME1 = ?";
+            preparedStatement = this.conexao.prepareStatement(sqlite);
+            preparedStatement.setString(1, dado);
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                System.out.println("Dado encontrado");
+                return true;
+            }else {
+                System.out.println("Dado não encontrado");
+                return false;
+            }
+        }catch (SQLException e){
+            System.out.println("Erro ao Verificar dados no banco: "+ e.getMessage());
+            return false;
+        }
     }
 }
