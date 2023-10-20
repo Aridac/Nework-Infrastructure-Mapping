@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Scanner;
 public class ConexaoSQL {
 
     private Connection conexao = null;
@@ -40,7 +41,7 @@ public class ConexaoSQL {
             return false;
         }
         return true;
-    };
+    }
     public boolean inserirDados(String nome1){
         try{
             if((verificar_Dados_Entrada_Banco(nome1)) == false){
@@ -96,11 +97,51 @@ public class ConexaoSQL {
             return false;
         }
     }
+    public boolean alterar(String nome){
+        Scanner scanner = new Scanner(System.in);
+        try{
+        if(verificar_Dados_Entrada_Banco(nome)){
+            String sql="UPDATE NOMES SET NOME1 = ? WHERE NOME1 = ?";
+            preparedStatement = this.conexao.prepareStatement(sql);
+            System.out.println("Digite o nome que deseja alterar: ");
+            String dado = scanner.next();
+            System.out.println("Selecionado dado: "+dado);
+            System.out.println("Digite o novo nome : ");
+            String dadoNovo = scanner.next();
+            scanner.close();
+            preparedStatement.setString(1,dadoNovo);
+            preparedStatement.setString(2,dado);
+            preparedStatement.executeUpdate();
+            System.out.println("Dado alterado com sucesso!");
+        }
+    } catch (SQLException e){
+        System.out.println("Não foi possivel"+e.getMessage());
+    }return true;
+    }
+
     private boolean verificar_Dados_Entrada_Banco(String dado){
         try {
             String sqlite = "SELECT * FROM NOMES WHERE NOME1 = ?";
             preparedStatement = this.conexao.prepareStatement(sqlite);
             preparedStatement.setString(1, dado);
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                System.out.println("Dado encontrado");
+                return true;
+            }else {
+                System.out.println("Dado não encontrado");
+                return false;
+            }
+        }catch (SQLException e){
+            System.out.println("Erro ao Verificar dados no banco: "+ e.getMessage());
+            return false;
+        }
+    }
+    private boolean verificar_Dados_Entrada_Banco(int dado){
+        try {
+            String sqlite = "SELECT * FROM NOMES WHERE ID = ?";
+            preparedStatement = this.conexao.prepareStatement(sqlite);
+            preparedStatement.setString(1, String.valueOf(dado));
             resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 System.out.println("Dado encontrado");
