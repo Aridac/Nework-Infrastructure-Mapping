@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
         Cabo c = new Cabo();
@@ -10,5 +12,6 @@ public class Main {
 //            System.out.println("erro ao inserir");
 //            sql.desconectar();
 //        }
-        }
+
+    }
 }

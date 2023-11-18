@@ -1,33 +1,24 @@
 import java.util.Scanner;
 public class Equipamento {
-    private String nomeEquipamento;
-    private String rack;
-    Scanner s = new Scanner(System.in);
-    public Equipamento(String nomeEquipamento, String rack) {
-        this.nomeEquipamento = nomeEquipamento;
-        this.rack = rack;
-    }
-
+    private int id_equipamento;
+    private String nome_equipamento;
+    Local local = new Local();
+    Rack r = new Rack();
     public Equipamento() {
-        System.out.println("Digite o nome do equipamento: ");
-        this.nomeEquipamento = s.next();
-        System.out.println("Digite o rack: ");
-        this.rack = s.next();
+    }
+    public void setId_equipamento(int id_equipamento) {
+        this.id_equipamento = id_equipamento;
     }
 
-    public String getNomeEquipamento() {
-        return nomeEquipamento;
+    public void setNome_equipamento(String nome_equipamento) {
+        this.nome_equipamento = nome_equipamento;
     }
 
-    public void setNomeEquipamento(String nomeEquipamento) {
-        this.nomeEquipamento = nomeEquipamento;
+    public int getId_equipamento() {
+        return id_equipamento;
     }
 
-    public String getRack() {
-        return rack;
-    }
-
-    public void setRack(String rack) {
-        this.rack = rack;
+    public String getNome_equipamento() {
+        return nome_equipamento;
     }
 }

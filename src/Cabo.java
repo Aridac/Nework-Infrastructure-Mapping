@@ -1,34 +1,63 @@
 import java.util.Scanner;
-public class Cabo extends Equipamento {
-    private String tipo;
-    private String nomeCabo;
-    private int idCabo;
+public class Cabo{
+    private int id_cabo;
+    private String tipo_cabo;
+    private String nome_cabo;
     Equipamento e = new Equipamento();
-    private String origemCabo = getNomeEquipamento();
-    private String destinoCabo = getNomeEquipamento();
-    private float tamanhoCabo;
-    Scanner stin = new Scanner(System.in);
+    Local l = new Local();
+    Rack rack = new Rack();
+    Projeto projeto = new Projeto();
+    private String origem_cabo;
+    private String destino_cabo;
+    private float comprimento_cabo;
     public Cabo() {
-        System.out.println("Digite o tipo de cabo: ");
-        this.tipo = stin.next();
-        System.out.println("Digite o nome do cabo: ");
-        this.nomeCabo = stin.next();
-        System.out.println("Digite o id do cabo: ");
-        this.idCabo = stin.nextInt();
-        this.origemCabo = e.getNomeEquipamento();
-        this.destinoCabo = e.getNomeEquipamento();
-        this.tamanhoCabo = stin.nextFloat();
-        System.out.println("Tipo : "+this.tipo+"|Nome cabo :"+this.nomeCabo+"|Id :"+this.idCabo+"|Equipamento de origem :"+origemCabo+"|Equipamento de destino :"+destinoCabo+"|Tamanho do cabo :"+this.tamanhoCabo);
     }
 
-    public Cabo(String tipo, String nomeCabo, int idCabo, Equipamento e, String origemCabo, String destinoCabo, float tamanhoCabo, Scanner s) {
-        this.tipo = tipo;
-        this.nomeCabo = nomeCabo;
-        this.idCabo = idCabo;
-        this.e = e;
-        this.origemCabo = origemCabo;
-        this.destinoCabo = destinoCabo;
-        this.tamanhoCabo = tamanhoCabo;
-        this.s = s;
+    public void setId_cabo(int id_cabo) {
+        this.id_cabo = id_cabo;
+    }
+
+    public void setTipo_cabo(String tipo_cabo) {
+        this.tipo_cabo = tipo_cabo;
+    }
+
+    public void setNome_cabo(String nome_cabo) {
+        this.nome_cabo = nome_cabo;
+    }
+
+    public void setOrigem_cabo(String origem_cabo) {
+        this.origem_cabo = origem_cabo;
+    }
+
+    public void setDestino_cabo(String destino_cabo) {
+        this.destino_cabo = destino_cabo;
+    }
+
+    public void setComprimento_cabo(float comprimento_cabo) {
+        this.comprimento_cabo = comprimento_cabo;
+    }
+
+    public int getId_cabo() {
+        return id_cabo;
+    }
+
+    public String getTipo_cabo() {
+        return tipo_cabo;
+    }
+
+    public String getNome_cabo() {
+        return nome_cabo;
+    }
+
+    public String getOrigem_cabo() {
+        return origem_cabo;
+    }
+
+    public String getDestino_cabo() {
+        return destino_cabo;
+    }
+
+    public float getComprimento_cabo() {
+        return comprimento_cabo;
     }
 }
