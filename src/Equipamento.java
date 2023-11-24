@@ -2,17 +2,7 @@ import java.util.Scanner;
 public class Equipamento {
     private int id_equipamento;
     private String nome_equipamento;
-    Local local = new Local();
-    Rack r = new Rack();
-    public Equipamento() {
-    }
-    public void setId_equipamento(int id_equipamento) {
-        this.id_equipamento = id_equipamento;
-    }
-
-    public void setNome_equipamento(String nome_equipamento) {
-        this.nome_equipamento = nome_equipamento;
-    }
+    private Rack rack;
 
     public int getId_equipamento() {
         return id_equipamento;
@@ -20,5 +10,18 @@ public class Equipamento {
 
     public String getNome_equipamento() {
         return nome_equipamento;
+    }
+
+    public Rack getRack() {
+        return rack;
+    }
+
+    public Equipamento(){
+
+    }
+    public Equipamento(int id_equipamento, String nome_equipamento, Rack rack) {
+        this.id_equipamento = id_equipamento;
+        this.nome_equipamento = nome_equipamento;
+        this.rack = rack;
     }
 }

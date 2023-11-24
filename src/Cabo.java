@@ -3,38 +3,21 @@ public class Cabo{
     private int id_cabo;
     private String tipo_cabo;
     private String nome_cabo;
-    Equipamento e = new Equipamento();
-    Local l = new Local();
-    Rack rack = new Rack();
-    Projeto projeto = new Projeto();
     private String origem_cabo;
     private String destino_cabo;
     private float comprimento_cabo;
-    public Cabo() {
-    }
+    private Equipamento equipamento;
+    public Cabo(){
 
-    public void setId_cabo(int id_cabo) {
+    }
+    public Cabo(int id_cabo, String tipo_cabo, String nome_cabo, String origem_cabo, String destino_cabo, float comprimento_cabo, Equipamento equipamento) {
         this.id_cabo = id_cabo;
-    }
-
-    public void setTipo_cabo(String tipo_cabo) {
         this.tipo_cabo = tipo_cabo;
-    }
-
-    public void setNome_cabo(String nome_cabo) {
         this.nome_cabo = nome_cabo;
-    }
-
-    public void setOrigem_cabo(String origem_cabo) {
         this.origem_cabo = origem_cabo;
-    }
-
-    public void setDestino_cabo(String destino_cabo) {
         this.destino_cabo = destino_cabo;
-    }
-
-    public void setComprimento_cabo(float comprimento_cabo) {
         this.comprimento_cabo = comprimento_cabo;
+        this.equipamento = equipamento;
     }
 
     public int getId_cabo() {
